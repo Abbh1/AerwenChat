@@ -1,0 +1,64 @@
+{
+  "editor.fontSize": 15,
+  "editor.insertSpaces": false,
+  "editor.bracketPairColorization.enabled": true,
+  "editor.formatOnPaste": false,
+  "editor.formatOnType": false,
+  // 配置eslint适用于vue代码
+  "eslint.validate": [
+    "javascript",
+    "typescript",
+    "vue"
+  ],
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[ts]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[js]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  // 保存时 prettier 自动格式化
+  "editor.formatOnSave": false,
+  // 保存时自动启用 eslint --fix 自动修复
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "eslint.autoFixOnSave": true,
+  },
+  "eslint.options": {
+    "overrideConfig": {
+      "env": {
+        "browser": true,
+        "es6": true
+      },
+      "parserOptions": {
+        "ecmaVersion": 2020,
+        "sourceType": "module",
+        "ecmaFeatures": {
+          "jsx": false
+        }
+      },
+      "rules": {
+        "no-debugger": "off"
+      }
+    }
+  },
+  "i18n-ally.displayLanguage": "zh-cn",
+  "i18n-ally.enabledParsers": ["json", "js"],
+  "i18n-ally.localesPaths": [
+    "src/i18n/lang",
+    "src/i18n/pages/login",
+    "src/i18n/pages/menu",
+  ],
+  "i18n-ally.extract.parsers.html": {
+    "attributes": ["text", "title", "alt", "placeholder", "label", "aria-label"],
+    "ignoredTags": ["script", "style"],
+    "vBind": true,
+    "inlineText": true
+  },
+  "i18n-ally.keystyle": "nested",
+}

@@ -1,0 +1,133 @@
+﻿using System;
+using SqlSugar;
+using System.Collections.Generic;
+using Infrastructure;
+using Infrastructure.Attribute;
+using ${options.ModelsNamespace};
+using ${options.ModelsNamespace}.Dto;
+using ${options.ModelsNamespace}.Models;
+using ${options.IRepositoriesNamespace};
+using ${options.IServicsNamespace}.${options.SubNamespace}.I${options.SubNamespace}Service;
+
+namespace ${options.ServicesNamespace}.${options.SubNamespace}
+{
+    /// <summary>
+    /// ${genTable.FunctionName}Service业务层处理
+    ///
+    /// @author ${replaceDto.Author}
+    /// @date ${replaceDto.AddTime}
+    /// </summary>
+    [AppService(ServiceType = typeof(I${replaceDto.ModelTypeName}Service), ServiceLifetime = LifeTime.Transient)]
+    public class ${replaceDto.ModelTypeName}Service : BaseService<${replaceDto.ModelTypeName}>, I${replaceDto.ModelTypeName}Service
+    {
+        private readonly ${replaceDto.ModelTypeName}Repository _${replaceDto.ModelTypeName}Repository;
+        public ${replaceDto.ModelTypeName}Service(${replaceDto.ModelTypeName}Repository repository)
+        {
+            _${replaceDto.ModelTypeName}Repository = repository;
+        }
+
+        #region 业务逻辑代码
+
+        /// <summary>
+        /// 查询${genTable.FunctionName}列表
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public PagedInfo<${replaceDto.ModelTypeName}> GetList(${replaceDto.ModelTypeName}QueryDto parm)
+        {
+            //开始拼装查询条件
+            var predicate = Expressionable.Create<${replaceDto.ModelTypeName}>();
+
+            //搜索条件查询语法参考Sqlsugar
+$foreach(column in genTable.Columns)
+$if(column.IsQuery)
+$if(column.CsharpType == "string")
+            predicate = predicate.AndIF(!string.IsNullOrEmpty(parm.${column.CsharpField}), ${codeTool.QueryExp(column.CsharpField, column.QueryType)};
+$elseif(column.CsharpType == "DateTime")
+            predicate = predicate.AndIF(parm.Begin${column.CsharpField} == null, it => it.${column.CsharpField} >= DateTime.Now.AddDays(-1));
+            predicate = predicate.AndIF(parm.Begin${column.CsharpField} != null, it => it.${column.CsharpField} >= parm.Begin${column.CsharpField} && it.${column.CsharpField} <= parm.End${column.CsharpField});
+$elseif(column.CsharpType == "int" || column.CsharpType == "long")
+            predicate = predicate.AndIF(parm.${column.CsharpField} != null, ${codeTool.QueryExp(column.CsharpField, column.QueryType)};
+$end
+$end
+$end
+            var response = _${replaceDto.ModelTypeName}Repository
+                .Queryable()
+$if(null != genTable.SubTableName && "" != genTable.SubTableName)
+                .Includes(it => it.${genTable.SubTable.ClassName}.MappingField(z => z.${genTable.SubTableFkName}, () => it.${replaceDto.PKName}))
+$end
+$if(genTable.Options.SortField != "" && genTable.Options.SortField != null)
+                .OrderBy("${genTable.Options.SortField} ${genTable.Options.SortType}")
+$end
+                .Where(predicate.ToExpression())
+                .ToPage(parm);
+
+            return response;
+        }
+
+$if(genTable.TplCategory == "tree")
+        /// <summary>
+        /// 查询${genTable.FunctionName}树列表
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public List<${replaceDto.ModelTypeName}> GetTreeList(${replaceDto.ModelTypeName}QueryDto parm)
+        {
+            //开始拼装查询条件
+            var predicate = Expressionable.Create<${replaceDto.ModelTypeName}>();
+
+            //搜索条件查询语法参考Sqlsugar
+$foreach(column in genTable.Columns)
+$if(column.IsQuery)
+$if(column.CsharpType == "string")
+            predicate = predicate.AndIF(!string.IsNullOrEmpty(parm.${column.CsharpField}), ${codeTool.QueryExp(column.CsharpField, column.QueryType)};
+$elseif(column.CsharpType == "int" || column.CsharpType == "long")
+            predicate = predicate.AndIF(parm.${column.CsharpField} != null, ${codeTool.QueryExp(column.CsharpField, column.QueryType)};
+$end
+$end
+$end
+
+            var response = _${replaceDto.ModelTypeName}Repository.Queryable().Where(predicate.ToExpression())
+                .ToTree(it => it.Children, it => it.${genTable.Options.TreeParentCode}, 0);
+
+            return response;
+        }
+$end
+        /// <summary>
+        /// 添加${genTable.FunctionName}
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public int Add${replaceDto.ModelTypeName}(${replaceDto.ModelTypeName} parm)
+        {
+            var response = _${replaceDto.ModelTypeName}Repository.Insert(parm, it => new
+            {
+${foreach(item in genTable.Columns)}
+$if((item.IsInsert))
+                it.$item.CsharpField,
+$end
+${end}
+            });
+            return response;
+        }
+
+        /// <summary>
+        /// 修改${genTable.FunctionName}
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public int Update${replaceDto.ModelTypeName}(${replaceDto.ModelTypeName} parm)
+        {
+            var response = _${replaceDto.ModelTypeName}Repository.Update(w => w.${replaceDto.PKName} == parm.${replaceDto.PKName}, it => new ${replaceDto.ModelTypeName}()
+            {
+$foreach(item in genTable.Columns)
+$if((item.IsEdit))
+                $item.CsharpField = parm.$item.CsharpField,
+$end
+${end}
+            });
+            return response;
+        }
+        #endregion
+    }
+}

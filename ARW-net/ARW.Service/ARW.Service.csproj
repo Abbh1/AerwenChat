@@ -1,0 +1,20 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<AssemblyName>ARW.Service</AssemblyName>
+		<RootNamespace>ARW.Service</RootNamespace>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Dapper" Version="2.0.123" />
+	  <PackageReference Include="Mapster" Version="7.3.0" />
+	  <PackageReference Include="SqlSugar.MySqlConnectorCore" Version="5.10.3.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\ARW.Common\ARW.Common.csproj" />
+		<ProjectReference Include="..\ARW.Repository\ARW.Repository.csproj" />
+	</ItemGroup>
+
+</Project>

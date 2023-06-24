@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ARW.Admin.WebApi": {
+      "commandName": "Project",
+      "launchBrowser": false,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:8777"
+    }
+  }
+}

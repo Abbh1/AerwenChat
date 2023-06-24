@@ -1,0 +1,57 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+	<PropertyGroup>
+		<TargetFramework>net6.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<DocumentationFile></DocumentationFile>
+		<AssemblyName>ARW.WebApi</AssemblyName>
+		<RootNamespace>ARW.WebApi</RootNamespace>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<Compile Remove="Middleware\**" />
+		<Content Remove="Middleware\**" />
+		<EmbeddedResource Remove="Middleware\**" />
+		<None Remove="Middleware\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Include="Middleware\GlobalExceptionMiddleware.cs" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\ARW.CodeGenerator\ARW.CodeGenerator.csproj" />
+		<ProjectReference Include="..\ARW.Service\ARW.Service.csproj" />
+		<ProjectReference Include="..\ARW.Tasks\ARW.Tasks.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AspNetCoreRateLimit" Version="4.0.2" />
+		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.6" />
+		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.7" />
+		<PackageReference Include="RestSharp" Version="108.0.1" />
+		<PackageReference Include="SqlSugar.MySqlConnectorCore" Version="5.10.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore" Version="6.3.1" />
+		<PackageReference Include="Swashbuckle.AspNetCore.Filters" Version="7.0.3" />
+		<PackageReference Include="System.Linq.Dynamic.Core" Version="1.2.19" />
+		<PackageReference Include="UAParser" Version="3.1.47" />
+		<PackageReference Include="IPTools.China" Version="1.6.0" />
+		<PackageReference Include="NLog" Version="5.0.1" />
+		<PackageReference Include="NLog.Web.AspNetCore" Version="5.0.0" />
+		<PackageReference Include="Mapster" Version="7.3.0" />
+		<PackageReference Include="EPPlus" Version="6.0.5" />
+		<PackageReference Include="Hei.Captcha" Version="0.3.0" />
+		<PackageReference Include="Snowflake.Core" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="ip2region.db">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+</Project>

@@ -1,0 +1,55 @@
+{
+  "name": "zr",
+  "version": "3.8.2",
+  "description": "管理系统",
+  "author": "ZR",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vite",
+    "build:prod": "vite build",
+    "build:stage": "vite build --mode staging",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://gitee.com/izory/ZrAdminNetCore"
+  },
+  "dependencies": {
+    "@element-plus/icons-vue": "^0.2.7",
+    "@microsoft/signalr": "^6.0.5",
+    "@vueuse/core": "^8.5.0",
+    "@wangeditor/editor": "^5.1.1",
+    "@wangeditor/editor-for-vue": "^5.1.11",
+    "axios": "^0.27.2",
+    "countup.js": "^2.1.0",
+    "default-passive-events": "^2.0.0",
+    "echarts": "5.2.2",
+    "echarts-wordcloud": "^2.0.0",
+    "element-plus": "^2.2.6",
+    "file-saver": "2.0.5",
+    "fuse.js": "6.4.6",
+    "highlight.js": "^11.5.1",
+    "js-cookie": "3.0.1",
+    "jsencrypt": "3.2.1",
+    "md-editor-v3": "^1.11.11",
+    "nprogress": "0.2.0",
+    "pinia": "^2.0.14",
+    "sortablejs": "^1.15.0",
+    "vue": "^3.2.36",
+    "vue-clipboard3": "^2.0.0",
+    "vue-cropper": "1.0.2",
+    "vue-i18n": "^9.1.10",
+    "vue-router": "^4.0.15",
+    "vue3-seamless-scroll": "^1.2.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/compiler-sfc": "^3.2.33",
+    "sass": "1.45.0",
+    "unplugin-auto-import": "0.5.3",
+    "vite": "^2.9.5",
+    "vite-plugin-compression": "0.3.6",
+    "vite-plugin-svg-icons": "1.0.5",
+    "vite-plugin-vue-setup-extend": "^0.4.0"
+  }
+}
